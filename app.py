@@ -1,7 +1,7 @@
 #!/usr/bin/python
 from flask import Flask, render_template, request, session, redirect, url_for
 import csv 
-import hashlib
+import  #use sha256
 import sqlite3
 f = "database.db"
 db = sqlite3.connect(f)
@@ -12,7 +12,8 @@ app = Flask(__name__)
 app.secret_key = '\xbc!<\xf2\x9eW1\rm\xc4=\xc8\x90b\x8d?iA\xdf\x98'
 
 
-def auth():
+def auth(user, pw):
+	command = "SELECT "
 
 
 
