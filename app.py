@@ -2,37 +2,114 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 import  #use sha256
 import sqlite3
+import hashlib
 f = "database.db"
 db = sqlite3.connect(f)
 og = db.cursor()
 d = {}
 
-app = Flask(__name__)
-app.secret_key = '\xbc!<\xf2\x9eW1\rm\xc4=\xc8\x90b\x8d?iA\xdf\x98'
+
+ramirez = Flask(__name__)
+ramirez.secret_key = "fjrjgh??0vjirun??f449929hnf"
+
+db = sqlite3.connect("database.db")
+c = db.cursor()
 
 
-#if username isn't present, register it
-# if username is pres, check PW, use sha256 hashing
+#hashing passwords
+def hash(x):
+    h = hashlib.sha3()
+    h.update(x)
+    return h.hexdigest()
 
 
-@app.route('/')
-def arthur():
-	# if logged in --> main, if not login
-	if len(session.keys()) != 0:
-		return redirect(url_for('mrRatburn'))
-	else:
-		return redirect(url_for('doraWinafred'))
+#new user registering
+def register(username, first, last, password):
+
+    s = "SELECT username, password FROM user"
+    t = c.execute(s)
+
+    #checking if user is already registered
+    for record in t:
+        if record[0] == username:
+            return "Whoops, this user is already registered!"
+
+    #user is not already registered
+    insert = "INSERT INTO user VALUES (%s, %s, %s, %s)"%(username, first, last, hash(password))
+    c.execute(insert)
+
+    db.commit()
+    db.close()
+
+        
+#logging in
+def checkLogin(username, password):
+
+    s = "SELECT username, password FROM user"
+    t = c.execute(s)
+
+    for record in t:
+        if record[0] == username: #username found
+            if record[1] == hash(password): #correct password
+                return True
+            else: #incorrect password
+                return False
+            
+    #no username was found
+    return False
 
 
-@app.route():
-def mrRatburn():
-	return render_template("main.html")
+@ramirez.route("/")
+def root():
+    for user in session:
+        return redirect(url_for("main"))
+    return redirect(url_for("auth"))
 
 
-@app.route('/login/')
-def doraWinafred():
-	return render_template("login.html")
+@ramirez.route("/auth/")
+def auth():
+    print request.headers
+    return render_template("login.html")
 
+
+@ramirez.route("/main/")
+def main():
+    return render_template("main.html", user = session["user"])
+
+
+@ramirez.route("/logout/", methods = ["POST"])
+def logout():
+    if request.form["enter"] == "logout":
+        session.pop("user")
+    return redirect(url_for("auth"))
+
+
+@ramirez.route("/check/", methods = ["GET", "POST"])
+def check():
+    
+    response = request.form
+    username = response["user"]
+    password = response["password"]
+    session["user"] = username
+        
+    if checkLogin(username, password): #successfully logged in
+        return redirect(url_for("main"))
+        
+    else: #unsuccessful login
+        return render_template("login.html", result = "Incorrect username or password.")
+
+
+@ramirez.route("/create/", methods = ["GET", "POST"])
+def create():
+
+    response = request.form
+    username = response["user"]
+    first = response["first"]
+    last = response["last"]
+    password = response["password"]
+    session["user"] = username
+
+    return render_template("login.html", result = register(username, first, last, password))
 
 
 @app.route('/view/')
@@ -45,7 +122,6 @@ def theBrain():
 	return render_template("add.html", title = "", user = "", lastentry = "")
 
 
-
 @app.route('/create/')
 def francine():
 	return render_template("create.html")
@@ -55,4 +131,7 @@ def francine():
 def muffy():
 	return render_template("settings.html")
 
-
+        
+if __name__ == "__main__":
+    ramirez.debug = True
+    ramirez.run()
