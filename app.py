@@ -12,6 +12,9 @@ app = Flask(__name__)
 app.secret_key = '\xbc!<\xf2\x9eW1\rm\xc4=\xc8\x90b\x8d?iA\xdf\x98'
 
 
+#if username isn't present, register it
+# if username is pres, check PW, use sha256 hashing
+
 def auth(user, pw):
 	command = "SELECT "
 
