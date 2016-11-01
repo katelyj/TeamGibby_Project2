@@ -85,17 +85,25 @@ def check():
     username = response["user"]
     password = response["password"]
     session["user"] = username
+        
+    if checkLogin(username, password): #successfully logged in
+        return redirect(url_for("main"))
+        
+    else: #unsuccessful login
+        return render_template("auth.html", result = "Incorrect username or password.")
 
-    if response["enter"] == "Register": #register
-        return render_template("auth.html", result = register(username, password))
-    
-    else:
-        
-        if checkLogin(username, password): #successfully logged in
-            return redirect(url_for("main"))
-        
-        else: #unsuccessful login
-            return render_template("auth.html", result = "Incorrect username or password.")
+
+@ramirez.route("/create/", methods = ["GET", "POST"])
+def create():
+
+    response = request.form
+    username = response["user"]
+    first = response["first"]
+    last = response["last"]
+    password = response["password"]
+    session["user"] = username
+
+    return render_template("auth.html", result = register(username, first, last, password))
 
         
 if __name__ == "__main__":

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+
+<html>
+
+  
+  <head>
+    <title>This is just for testing logging in.</title>
+    <h1>Testing out the login file...</h1>
+  </head>
+
+  
+  <body>
+
+    
+    {{result}}
+
+    
+    <h2>Login:</h2><br><br>
+
+    <form action="/check/" method="POST">
+      
+      Username: <input type="text" name="user"><br>
+      Password: <input type="password" name="password"><br>
+      
+      <input type="submit" name="enter" value="Login"><br>
+
+    </form><br><br>
+
+
+    <h2>Or, register:</h2>
+    
+    <form action="/create/" method="POST">
+
+      First name: <input type="text" name="first"><br>
+      Last name:  <input type="text" name="last"><br>
+      Username: <input type="text" name="user"><br>
+      Password: <input type="password" name="password"><br>
+      
+      <input type="submit" name="enter" value="Register"><br>
+
+    </form>
+    
+    
+  </body>
+  
+
+</html>
