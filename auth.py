@@ -63,7 +63,7 @@ def root():
 @ramirez.route("/auth/")
 def auth():
     print request.headers
-    return render_template("auth.html")
+    return render_template("login.html")
 
 
 @ramirez.route("/main/")
@@ -90,7 +90,7 @@ def check():
         return redirect(url_for("main"))
         
     else: #unsuccessful login
-        return render_template("auth.html", result = "Incorrect username or password.")
+        return render_template("login.html", result = "Incorrect username or password.")
 
 
 @ramirez.route("/create/", methods = ["GET", "POST"])
@@ -103,7 +103,7 @@ def create():
     password = response["password"]
     session["user"] = username
 
-    return render_template("auth.html", result = register(username, first, last, password))
+    return render_template("login.html", result = register(username, first, last, password))
 
         
 if __name__ == "__main__":
