@@ -35,8 +35,18 @@ def register(username, first, last, password):
     db.close()
 
         
-
-
 #logging in
-def login(username, password):
-    return ""
+def checkLogin(username, password):
+
+    s = "SELECT username, password FROM user"
+    t = c.execute(s)
+
+    for record in t:
+        if record[0] == username: #username found
+            if record[1] == hash(password): #correct password
+                return "Congrats, you've logged in!"
+            else: #incorrect password
+                return "Incorrect password."
+            
+    #no username was found
+    return "Incorrect username."
