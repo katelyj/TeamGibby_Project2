@@ -1,8 +1,3 @@
-#SETTINGS
-
-#change password?
-#customize user page?
-
 import sqlite3
 
 db = sqlite3.connect("database.db")
@@ -21,7 +16,7 @@ def changePass(username, originalPass, newPass):
                 db.commit()
                 db.close()
                 return "Success!"
-            else:
+            else: #incorrect original password
                 return "Incorrect password!"
 
     return "Error: user not found" #shouldn't happen... but just in case
