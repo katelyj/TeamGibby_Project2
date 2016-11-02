@@ -118,23 +118,23 @@ def create():
     return render_template("login.html", result = register(username, first, last, password))
 
 
-@app.route('/view/')
+@ramirez.route('/view/')
 def buster():
 	return render_template("view.html", storyID = x)
 
 
-@app.route('/add/')
+@ramirez.route('/add/')
 def theBrain():
     storytoview = request.form 
 	return render_template("add.html", title = "", user = "", lastentry = "")
 
 
-@app.route('/create/')
+@ramirez.route('/create/')
 def francine():
 	return render_template("create.html")
 
 
-@app.route('/settings/')
+@ramirez.route('/settings/')
 def muffy():
 	return render_template("settings.html")
 
