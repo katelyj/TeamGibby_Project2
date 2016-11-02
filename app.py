@@ -1,6 +1,7 @@
 #!/usr/bin/python
 from flask import Flask, render_template, request, session, redirect, url_for
-import  #use sha256
+from utils import add
+
 import sqlite3
 import hashlib
 f = "database.db"
@@ -74,7 +75,12 @@ def auth():
 
 @ramirez.route("/main/")
 def main():
-    return render_template("main.html", user = session["user"])
+    if (request.form['entry2Add'] != ''):
+        x = "Entry Successfully Added"
+    if (request.form['entry2Start'] != ''):
+        x = "Story Successfully Created"
+    return render_template("main.html", user = session["user"], storiesToView= LINKS , storiestoAddto=LINKS, message = x) ## both are lists of links
+    # message is either "entry successfully added" or "story successfully created"
 
 
 @ramirez.route("/logout/", methods = ["POST"])
@@ -114,11 +120,12 @@ def create():
 
 @app.route('/view/')
 def buster():
-	return render_template("view.html")
+	return render_template("view.html", storyID = x)
 
 
 @app.route('/add/')
 def theBrain():
+    storytoview = request.form 
 	return render_template("add.html", title = "", user = "", lastentry = "")
 
 
