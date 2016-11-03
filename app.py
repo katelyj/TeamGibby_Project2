@@ -1,3 +1,4 @@
+
 #!/usr/bin/python
 from flask import Flask, render_template, request, session, redirect, url_for
 from utils import add
@@ -75,8 +76,15 @@ def auth():
 
 @ramirez.route("/main/")
 def main():
+
+    ##ADDED ENTRIES
     if (request.form['entry2Add'] != ''):
         x = "Entry Successfully Added"
+        name = session['user']
+        entryText = request.form['entry2Add']
+
+
+    ##Stories Created    
     if (request.form['entry2Start'] != ''):
         x = "Story Successfully Created"
     return render_template("main.html", user = session["user"], storiesToView= LINKS , storiestoAddto=LINKS, message = x) ## both are lists of links
@@ -125,6 +133,7 @@ def buster():
 
 @ramirez.route('/add/')
 def theBrain():
+    #each story that displays on the main page 
     storytoview = request.form 
 	return render_template("add.html", title = "", user = "", lastentry = "")
 
