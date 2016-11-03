@@ -27,7 +27,13 @@ def storiesIcanView():
 
 
 def buttonifyLinks(storyID):
-    string = "<form action = '/view/'>" 
+    string = "<form action = '/view/'> <b>" 
+    command = "SELECT Title, user from story_directory where storyId == " + str(storyID)+ ""
+    poe = og.execute(command)
+    f = ""
+    for item in poe:
+        f+= item[0]
+        f+= item[1]
     string +=  "<b>Title, by User</b> <input type="text" name=str(storyID)><br><br>"
     string += " </form>  "
 
