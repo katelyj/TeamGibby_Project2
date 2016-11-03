@@ -1,10 +1,10 @@
-
 #!/usr/bin/python
 from flask import Flask, render_template, request, session, redirect, url_for
 from utils import add
-
 import sqlite3
 import hashlib
+
+
 f = "database.db"
 db = sqlite3.connect(f)
 og = db.cursor()
@@ -13,9 +13,6 @@ d = {}
 
 ramirez = Flask(__name__)
 ramirez.secret_key = "fjrjgh??0vjirun??f449929hnf"
-
-db = sqlite3.connect("database.db")
-c = db.cursor()
 
 
 #hashing passwords
@@ -29,7 +26,7 @@ def hash(x):
 def register(username, first, last, password):
 
     s = "SELECT username, password FROM user"
-    t = c.execute(s)
+    t = og.execute(s)
 
     #checking if user is already registered
     for record in t:
@@ -38,7 +35,7 @@ def register(username, first, last, password):
 
     #user is not already registered
     insert = "INSERT INTO user VALUES (%s, %s, %s, %s)"%(username, first, last, hash(password))
-    c.execute(insert)
+    og.execute(insert)
 
     db.commit()
     db.close()
@@ -48,7 +45,7 @@ def register(username, first, last, password):
 def checkLogin(username, password):
 
     s = "SELECT username, password FROM user"
-    t = c.execute(s)
+    t = og.execute(s)
 
     for record in t:
         if record[0] == username: #username found
