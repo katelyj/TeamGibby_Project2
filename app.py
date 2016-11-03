@@ -1,6 +1,6 @@
 #!/usr/bin/python
 from flask import Flask, render_template, request, session, redirect, url_for
-from utils import add
+from utils import add, create
 import sqlite3
 import hashlib
 
@@ -13,6 +13,23 @@ d = {}
 
 ramirez = Flask(__name__)
 ramirez.secret_key = "fjrjgh??0vjirun??f449929hnf"
+
+
+def storiesIcanView():
+    ggg = "SELECT storyId FROM story_entries where user == " + str(session['user']) + ";"
+    rara = og.execute(ggg)
+    stories = []#list of story IDs you're allowed to choose from
+    i = 0
+    for item in rara:
+        stories.append(item[i])
+        i+=1
+    return stories
+
+
+def buttonifyLinks(storyID):
+    string = "<form action = '/view/'>" 
+    string +=  "<b>Title, by User</b> <input type="text" name=str(storyID)><br><br>"
+    string += " </form>  "
 
 
 #hashing passwords
@@ -75,6 +92,7 @@ def auth():
 def main():
 
     ##ADDED ENTRIES
+
     if (request.form['entry2Add'] != ''):
         x = "Entry Successfully Added"
         name = session['user']
@@ -84,6 +102,15 @@ def main():
     ##Stories Created    
     if (request.form['entry2Start'] != ''):
         x = "Story Successfully Created"
+    
+    else:
+        x = " "
+
+
+    lis = storiesIcanView
+
+
+
     return render_template("main.html", user = session["user"], storiesToView= LINKS , storiestoAddto=LINKS, message = x) ## both are lists of links
     # message is either "entry successfully added" or "story successfully created"
 
@@ -109,7 +136,7 @@ def check():
     else: #unsuccessful login
         return render_template("login.html", result = "Incorrect username or password.")
 
-
+##CREATE ACCOUNTS
 @ramirez.route("/create/", methods = ["GET", "POST"])
 def create():
 
@@ -131,11 +158,12 @@ def buster():
 @ramirez.route('/add/')
 def theBrain():
     #each story that displays on the main page 
-    storytoview = request.form 
+    storytoview = request.form['storyChosen']
+    session['storyId'] = storytoview
 	return render_template("add.html", title = "", user = "", lastentry = "")
 
 
-@ramirez.route('/create/')
+@ramirez.route('/createstories/')
 def francine():
 	return render_template("create.html")
 
