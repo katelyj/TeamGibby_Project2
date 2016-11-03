@@ -20,6 +20,3 @@ def changePass(username, originalPass, newPass):
                 return "Incorrect password!"
 
     return "Error: user not found" #shouldn't happen... but just in case
-
-
-    

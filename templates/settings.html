@@ -1,0 +1,23 @@
+{% extends "template.html" %}
+
+
+{% block title %}
+
+User Settings
+
+{% endblock %}
+
+
+{% block content %}
+
+<h1>Settings</h1><br><br>
+
+<b>Update Password</b><br><br>
+
+<form action="/changePass/", method="POST">
+<b>Old Password: </b><input type="password" name="old"><br>
+<b>New Password: </b><input type="password" name="new"><br>
+<input type="submit" value="Submit"><br><br>
+</form>
+
+{% endblock %}
