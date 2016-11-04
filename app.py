@@ -8,6 +8,7 @@ import hashlib
 f = "database.db"
 db = sqlite3.connect(f)
 og = db.cursor()
+sqlite.connect(":memory:", check_same_thread=False)
 d = {}
 
 
@@ -27,6 +28,7 @@ def storiesIcanView():
         if (not(item[0] in stories)):
             stories.append(item[0])
     return stories
+
 
 ## Takes a list of (int) story ids, searches in the story directory for the stories you can view, because you have contributed to them
 ## returns a form full of buttons, where each button has the text "title, by user" , is named storytoread, and is matched with it's 
@@ -173,6 +175,7 @@ def check():
     else: #unsuccessful login
         return render_template("login.html", result = "Incorrect username or password.")
 
+    
 ##CREATE ACCOUNTS
 @ramirez.route("/create/", methods = ["GET", "POST"])
 def create():
