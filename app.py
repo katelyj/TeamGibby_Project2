@@ -1,15 +1,13 @@
 #!/usr/bin/python
 from flask import Flask, render_template, request, session, redirect, url_for
-from utils import add#, create
+from utils import add, create
 import sqlite3
 import hashlib
 
 
-f = "database.db"
-db = sqlite3.connect(f)
-og = db.cursor()
-sqlite3.connect(":memory:", check_same_thread=False)
-d = {}
+#f = "database.db"
+#db = sqlite3.connect(f)
+#og = db.cursor()
 
 
 ramirez = Flask(__name__)
@@ -20,6 +18,11 @@ ramirez.secret_key = "fjrjgh??0vjirun??f449929hnf"
 ## Returns a list of story IDs that the user is able to read, because they have contributed to them
 
 def storiesIcanView():
+
+    f = "database.db"
+    db = sqlite3.connect(f)
+    og = db.cursor()
+    
     ggg = "SELECT storyId FROM story_entries where user == " + str(session['user']) + ";"
     rara = og.execute(ggg)
     stories = []#list of story IDs you're allowed to choose from
@@ -27,6 +30,7 @@ def storiesIcanView():
     for item in rara:
         if (not(item[0] in stories)):
             stories.append(item[0])
+    db.close()
     return stories
 
 
@@ -34,6 +38,11 @@ def storiesIcanView():
 ## returns a form full of buttons, where each button has the text "title, by user" , is named storytoread, and is matched with it's 
 ## story ID
 def buttonifyLinks(storyID):
+
+    f = "database.db"
+    db = sqlite3.connect(f)
+    og = db.cursor()
+    
     Str = "<form action = '/view/'>" 
     command = "SELECT Title, user, storyId FROM story_directory WHERE storyId == " + str(storyID)+ ""
     poe = og.execute(command)
@@ -44,10 +53,16 @@ def buttonifyLinks(storyID):
         Str += "<button type = 'submit' name = 'storytoread' value = " + str(item[2]) + ">  " + f + "</button>"
         Str+= "<br>"
     Str += " </form>  "
+    db.close()
 
 
 ##Returns a form full of buttons to the first 10 stories in the story directory database
 def stories2Add2():
+
+    f = "database.db"
+    db = sqlite3.connect(f)
+    og = db.cursor()
+    
     Str = "form action= '/add/'>"
     command = "SELECT Title, user, storyID FROM story_directory"
     markSloan = og.execute(command)
@@ -63,6 +78,7 @@ def stories2Add2():
         else:
             break
     Str+= "</form>"
+    db.close()
 
 
 #hashing passwords
@@ -74,6 +90,10 @@ def hash(x):
 
 #new user registering
 def register(username, first, last, password):
+
+    f = "database.db"
+    db = sqlite3.connect(f)
+    og = db.cursor()
 
     s = "SELECT username, password FROM user"
     t = og.execute(s)
@@ -88,10 +108,15 @@ def register(username, first, last, password):
     og.execute(insert)
 
     db.commit()
+    db.close()
 
         
 #logging in
 def checkLogin(username, password):
+
+    f = "database.db"
+    db = sqlite3.connect(f)
+    og = db.cursor()
 
     s = "SELECT username, password FROM user"
     t = og.execute(s)
@@ -99,11 +124,14 @@ def checkLogin(username, password):
     for record in t:
         if record[0] == username: #username found
             if record[1] == hash(password): #correct password
+                db.close()
                 return True
             else: #incorrect password
+                db.close()
                 return False
             
     #no username was found
+    db.close()
     return False
 
 
