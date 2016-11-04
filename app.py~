@@ -63,6 +63,9 @@ def stories2Add2():
     Str+= "</form>"
 
 
+
+
+
 #hashing passwords
 def hash(x):
     h = hashlib.sha3()
@@ -198,16 +201,6 @@ def theBrain():
     #each story that displays on the main page 
     storytoview = request.form['storyChosen']
     session['storyId'] = storytoview
-    command = "SELECT title, user, FROM story_directory WHERE storyID == " + str(storytoview) + ""
-    meredith = og.execute(command)
-    for darkandtwisty in meredith:
-        title = darkandtwisty[0]
-        user = darkandtwisty[1]
-    eNum = add.findNextEntryNum(storytoview) - 1
-    command2 = "SELECT entry FROM story_entries WHERE storyID == " + str(storytoview) + "AND entryNum == " + str(eNum) + ""
-    cristina = og.execute(command2)
-    for slay in cristina:
-        lastentry = slay[0]
 	return render_template("add.html", title = "", user = "", lastentry = "")
 
 
