@@ -2,36 +2,38 @@
 <html>
 
   <head>
-    <title>Project 2: The Second One</title>
-    <link rel="stylesheet" href="/static/style.css">
-    
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="/static/style/style.css">
   </head>
   <body>
-    <div id="title">
-      fasdjlkj
+    <div id="navbar-space">
+      <div id="title-image">
+	<img src="/static/img/title.png" height="70">
+      </div>
+
+      <div id="button-space">
+	<form action="/">
+	  <input class="navbar-button" type="submit" value="Home">
+	</form>
+	<form action="/createstories/">
+	  <input class="navbar-button" type="submit" value="Create">
+	</form>
+	<form action="/add/">
+	  <input class="navbar-button" type="submit" value="Add">
+	</form>
+	<form action="/settings/">
+	  <input class="navbar-button" type="submit" value="Settings">
+	</form>
+	<form action="/logout/">
+	  <input class="navbar-button" type="submit" value="Logout">
+	</form>
+
+      </div>
     </div>
-
-
-    <form action = "/add/" methods = "POST">
-    	a bunch of buttons that will all lead u to the add route, sends story ID with it
-
-    </form>
-
-
-    <form action = "/view/" methods = "POST">
-    	sends story ID to the view route
-    </form>
-
-
-
-    <form action = "/createstory/" methods = "POST">
-    	Literally one button that will send u to the create route --> create.html
-
-    </form>
-
-
+    {% block content %}
+    {% endblock %}
+    <div id="footer">
+    </div>
   </body>
-
-
-
+  
 </html>
