@@ -1,7 +1,10 @@
 import sqlite3
+import hashlib
+
 
 db = sqlite3.connect("database.db")
 c = db.cursor()
+
 
 #changing password
 def changePass(username, originalPass, newPass):
@@ -11,8 +14,8 @@ def changePass(username, originalPass, newPass):
 
     for record in t:
         if record[0] == u: #correct user
-            if record[1] == originalPass: #correct original password
-                record[1] = newPass #change to new password
+            if record[1] == hash(originalPass): #correct original password
+                record[1] = hash(newPass) #change to new password
                 db.commit()
                 db.close()
                 return "Success!"
@@ -20,3 +23,10 @@ def changePass(username, originalPass, newPass):
                 return "Incorrect password!"
 
     return "Error: user not found" #shouldn't happen... but just in case
+
+
+#hashing passwords
+def hash(x):
+    h = hashlib.sha256()
+    h.update(x)
+    return h.hexdigest()
