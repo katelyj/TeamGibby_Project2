@@ -8,7 +8,7 @@ import hashlib
 f = "database.db"
 db = sqlite3.connect(f)
 og = db.cursor()
-sqlite.connect(":memory:", check_same_thread=False)
+sqlite3.connect(":memory:", check_same_thread=False)
 d = {}
 
 
