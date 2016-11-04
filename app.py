@@ -63,9 +63,6 @@ def stories2Add2():
     Str+= "</form>"
 
 
-
-
-
 #hashing passwords
 def hash(x):
     h = hashlib.sha3()
