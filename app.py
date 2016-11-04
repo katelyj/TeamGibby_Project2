@@ -86,7 +86,6 @@ def register(username, first, last, password):
     og.execute(insert)
 
     db.commit()
-    db.close()
 
         
 #logging in
