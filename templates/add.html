@@ -1,13 +1,8 @@
-<!DOCTYPE html>
-<html>
+{% extends "template.html" %}
 
-<head>
-    <title>Project 2: The Second One</title>
-    <link rel="stylesheet" href="/static/style.css">
-    
-</head>
+{% block title %} Project 2: The Second One {% endblock %}
 
-
+{% block content %}
 
 <form action = '/main/' method = "POST">
 <center>
@@ -29,9 +24,4 @@
 
 </form> 
 
-
-
-
-
-</html>
-
+{% endblock %}

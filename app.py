@@ -1,6 +1,6 @@
 #!/usr/bin/python
 from flask import Flask, render_template, request, session, redirect, url_for
-from utils import add, create
+from utils import add#, create
 import sqlite3
 import hashlib
 
@@ -38,7 +38,7 @@ def buttonifyLinks(storyID):
     for item in poe:
         f = ""
         f+= item[0] + " , by "
-        f+= item[1] + 
+       # f+= item[1] + 
         Str += "<button type = 'submit' name = 'storytoread' value = " + str(item[2]) + ">  " + f + "</button>"
         Str+= "<br>"
     Str += " </form>  "

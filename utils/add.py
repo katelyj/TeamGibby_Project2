@@ -1,6 +1,6 @@
 #!/usr/bin/python 
 from flask import Flask, render_template, request, session, redirect, url_for
-import  #use sha256
+import hashlib #use sha256
 import sqlite3
 f = "database.db"
 db = sqlite3.connect(f)
@@ -26,6 +26,6 @@ def addEntry(storyId, entryNum, user, entryText):
 	command = "INSERT INTO story_entries VALUES(%d , %d, %s, %s)"%(storyId, entryNum, user, entryText)
 	og.execute(command)
 	db.commit()
-    db.close()
+        db.close()
 
 
