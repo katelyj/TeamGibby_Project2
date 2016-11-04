@@ -1,16 +1,14 @@
-<!DOCTYPE html>
+{% extends "template.html" %}
 
 
-<html><center>
+{% block title %}
 
-  
-  <head>
-    <title>This is just for testing logging in.</title>
-    <h1>Testing out the login file...</h1><br>
-  </head>
+Login
 
-  
-  <body>
+{% endblock %}
+
+
+{% block content %}
 
     
     {{result}}
@@ -41,8 +39,4 @@
 
     </form>
     
-    
-  </body>
-  
-
-</center></html>
+{% endblock %}
