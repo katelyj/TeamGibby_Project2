@@ -10,9 +10,20 @@ d = {}
 
 
 # Adds an entry to the stories database
+def findNextEntryNum(storyID):
+	command = "SELECT entryNum FROM story_entries WHERE storyID == " + str(storyID) + ""
+	derekShepherd = og.execute(command)
+	maxlis = 0
+	for manz in derekShepherd:
+		if (manz[0] >= maxlis):
+			maxlis = manz[0]
+	return maxLis + 1
 
-def addEntry(storyId, entryNum, user, timestamp, entryText):
-	command = "INSERT INTO story_entries VALUES(%d , %d, %s, %s, %s)"%(storyId, entryNum, user, timestamp, entryText)
+
+
+def addEntry(storyId, entryNum, user, entryText):
+	
+	command = "INSERT INTO story_entries VALUES(%d , %d, %s, %s)"%(storyId, entryNum, user, entryText)
 	og.execute(command)
 	db.commit()
     db.close()

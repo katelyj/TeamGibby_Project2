@@ -126,24 +126,29 @@ def auth():
 def main():
 
     ##ADDED ENTRIES
-
+    ##def addEntry(storyId, entryNum, user, entryText):
+    ##takes data from the request form that's passed to main from the add.html form
     if (request.form['entry2Add'] != ''):
         x = "Entry Successfully Added"
         name = session['user']
         entryText = request.form['entry2Add']
+        ID = session['storyID']
+        eNum = add.findNextEntryNum(ID)
+        add.addEntry(ID, eNum, name, entryText) 
 
 
     ##Stories Created    
     if (request.form['entry2Start'] != ''):
         x = "Story Successfully Created"
-    
+        
+
+
     else:
         x = " "
 
-
+    ##list is a list of story IDs of the stories that the user has added to
     lis = storiesIcanView()
     LINKS_View = buttonifyLinks(lis) ## All the stories u can view
-
     LINKS_Add = stories2Add2()
 
 
@@ -199,7 +204,7 @@ def theBrain():
 	return render_template("add.html", title = "", user = "", lastentry = "")
 
 
-@ramirez.route('/createstories/')
+@ramirez.route('/createstory/')
 def francine():
 	return render_template("create.html")
 
