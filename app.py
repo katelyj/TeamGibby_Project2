@@ -104,7 +104,7 @@ def register(username, first, last, password):
             return "Whoops, this user is already registered!"
 
     #user is not already registered
-    insert = "INSERT INTO user VALUES (%s, %s, %s, %s)"%(username, first, last, hash(password))
+    insert = "INSERT INTO user VALUES ('%s', '%s', '%s', '%s')"%(username, first, last, hash(password))
     og.execute(insert)
 
     db.commit()
@@ -178,7 +178,7 @@ def main():
     LINKS_Add = stories2Add2()
 
 
-    return render_template("main.html", user = session["user"], storiesToView= LINKS_V , storiestoAddto=LINKS_A, message = x) ## both are lists of links
+    return render_template("template.html", user = session["user"], storiesToView= LINKS_V , storiestoAddto=LINKS_A, message = x) ## both are lists of links
     # message is either "entry successfully added" or "story successfully created"
 
 
