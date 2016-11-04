@@ -1,6 +1,6 @@
 #!/usr/bin/python
 from flask import Flask, render_template, request, session, redirect, url_for
-from utils import add, create
+from utils import add#, create
 import sqlite3
 import hashlib
 
