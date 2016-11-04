@@ -83,7 +83,7 @@ def stories2Add2():
 
 #hashing passwords
 def hash(x):
-    h = hashlib.sha3()
+    h = hashlib.sha256()
     h.update(x)
     return h.hexdigest()
 
