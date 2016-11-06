@@ -5,11 +5,11 @@ c = db.cursor()
 q = "CREATE TABLE user (username TEXT, fname TEXT, lname TEXT, password TEXT)"
 c.execute(q)
 
-q = "CREATE TABLE story_directory (storyID INTEGER, title TEXT, creator TEXT, timestamp BLOB)"
+q = "CREATE TABLE story_directory (storyID INTEGER, title TEXT, creator TEXT)"
 
 c.execute(q)
 
-q = "CREATE TABLE story_entries (storyID INTEGER, entrynum INT, user TEXT, timestamp BLOB, content TEXT)"
+q = "CREATE TABLE story_entries (storyID INTEGER, entrynum INT, user TEXT, content TEXT)"
 
 c.execute(q)
 

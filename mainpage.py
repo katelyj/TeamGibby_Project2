@@ -13,7 +13,7 @@ def storiesICanView(user):
     db = sqlite3.connect(f)
     og = db.cursor()
     
-    ggg = "SELECT storyId FROM story_entries where user == " + user + ";"
+    ggg = "SELECT storyID FROM story_entries where user == " + user + ";"
     rara = og.execute(ggg)
     stories = []#list of story IDs you're allowed to choose from
     i = 0
@@ -34,7 +34,7 @@ def buttonifyLinks(storyID):
     og = db.cursor()
     
     Str = "<form action = '/view/'>" 
-    command = "SELECT Title, user, storyId FROM story_directory WHERE storyId == " + str(storyID)+ ""
+    command = "SELECT title, creator, storyID FROM story_directory WHERE storyId == " + str(storyID)+ ""
     poe = og.execute(command)
     for item in poe:
         f = ""
@@ -54,7 +54,7 @@ def storiesToAddTo():
     og = db.cursor()
     
     Str = "form action= '/add/'>"
-    command = "SELECT Title, user, storyID FROM story_directory"
+    command = "SELECT title, creator, storyID FROM story_directory"
     markSloan = og.execute(command)
     num = 0
     for manz in markSloan:
