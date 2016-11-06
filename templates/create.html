@@ -1,4 +1,25 @@
 {% extends "template.html" %}
+
+
 {% block content %}
+
+<form action = '/main/' method = "POST">
+<center>
+
+Name Your Story:<input type="text" name="title"><br><br>
+
+</center>
+
+	<b>Get Creative with your first entry!</b> <br>
+
+	<textarea rows="6" cols="100" name="entry2Add">
+	Enter text here...</textarea>
+
+
+	<br>
+	<input type="submit" name="enter" value="Submit">
+</form> 
+
+
 
 {% endblock %}
