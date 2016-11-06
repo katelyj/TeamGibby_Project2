@@ -1,4 +1,8 @@
 {% extends "template.html" %}
+
 {% block content %}
+
+{{ viewlinks }}
+{{ addlinks }}
 
 {% endblock %}

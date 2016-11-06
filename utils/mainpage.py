@@ -52,7 +52,7 @@ def storiesToAddTo():
     og = db.cursor()
     
     Str = "form action= '/add/'>"
-    command = "SELECT Title, user, storyID FROM story_directory"
+    command = "SELECT Title, creator, storyID FROM story_directory"
     markSloan = og.execute(command)
     num = 0
     for manz in markSloan:

@@ -53,7 +53,7 @@ def main():
 
     ##stories to add to
     stories_toadd_links = mainpage.storiesToAddTo()
-    return render_template("template.html", viewlinks = stories_toview_links, addlinks = stories_toadd_links)
+    return render_template("main.html", viewlinks = stories_toview_links, addlinks = stories_toadd_links)
     
 
 @app.route("/logout/", methods = ["POST"])
@@ -62,7 +62,7 @@ def logout():
         session.pop("user")
     return redirect(url_for("auth"))
 
-@app.route("/create/", methods = ["GET", "POST"])
+@app.route("/createstories/", methods = ["GET", "POST"])
 def create():
     return render_template("create.html")
 
@@ -77,6 +77,10 @@ def add():
 @app.route("/settings/")
 def settings():
     return render_template("settings.html")
+
+@app.route("/changePass/")
+def changePass():
+    return render_template("main.html", message = "password changed")
 
 if __name__ == "__main__":
     app.debug = True
