@@ -18,7 +18,7 @@ def findNextEntryNum(storyID):
 		if (manz[0] >= maxlis):
 			maxlis = manz[0]
     
-    db.close()
+        db.close()
 	return maxLis + 1
 
 
@@ -52,7 +52,7 @@ def addEntry(storyId, entryNum, user, entryText):
 	command = "INSERT INTO story_entries VALUES(%d , %d, %s, %s)"%(storyId, entryNum, user, entryText)
 	og.execute(command)
 	db.commit()
-    db.close()
+        db.close()
 
 
 
