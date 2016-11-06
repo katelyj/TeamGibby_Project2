@@ -78,8 +78,9 @@ def add():
 def settings():
     return render_template("settings.html")
 
-@app.route("/changePass/")
+@app.route("/changePass/", methods = ["POST"])
 def changePass():
+ #   if changeP(request.form[
     return render_template("main.html", message = "password changed")
 
 if __name__ == "__main__":

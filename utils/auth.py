@@ -36,7 +36,7 @@ def register(username, first, last, password):
     db1 = sqlite3.connect(f)
     og = db1.cursor()
 
-    s = "SELECT username, password FROM user"
+    s = "SELECT username FROM user"
     t = og.execute(s)
 
     #checking if user is already registered
@@ -51,5 +51,19 @@ def register(username, first, last, password):
     db1.close()
     return True
 
+def changeP(username, oldP, newP):
+    f = "data/database.db"
+    db2 = sqlite3.connect(f)
+    og = db2.cursor()
 
-
+    s = "SELECT * FROM user WHERE username == '" + username + "'"
+    t = og.execute(s)
+    if hashDis(oldP) == t[3]:
+        replace = "UPDATE user SET password = " + hashDis(newP) + " WHERE username == '" + username + "'"
+        og.execute(replace)
+        db2.commit()
+        db2.close()
+        return True
+    else:
+        return False
+    
