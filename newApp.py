@@ -23,7 +23,7 @@ def authorize():
     username = response["user"]
     password = response["password"]
     if auth.checkLogin(username, password): #successfully logged in
-        session['user'] = username
+        session['user'] = username 
         return redirect(url_for("root"))
     else: #unsuccessful login
         return render_template("login.html", result = "Incorrect username or password.")
@@ -72,7 +72,28 @@ def view():
 
 @app.route("/add/")
 def add():
-    return render_template("add.html")
+    ID = request.form['storytoaddto']
+    session['id'] = ID
+    stufftorender = add.return_Last_Entry_and_title_user(ID)
+    return render_template("add.html", title = stufftorender[0] , user = stufftorender[1], lastEntry = stufftorender[2])
+
+@app.route("/add/done/")
+def add_done():
+    ##Adds story entry to the DB, returns to main
+    ## story_entries (storyID INTEGER, entrynum INT, user TEXT, content TEXT)
+    entrytext = request.form['entry2Add']
+    user = session['user']
+    storyid = session['id']
+    entrynum = add.findNextEntryNum(storyid)
+    add.addEntry(storyid, entrynum, user, entrytext)
+    session.pop('id')
+    return redirect(url_for("root"))
+
+
+@app.route("/create/done/")
+def create_done():
+    return redirect(url_for("root"))
+    ##Adds story entry to the DB
 
 @app.route("/settings/")
 def settings():
