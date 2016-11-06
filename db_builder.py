@@ -1,5 +1,5 @@
 import sqlite3
-file = "database.db"
+file = "data/database.db"
 db = sqlite3.connect(file)
 c = db.cursor()
 q = "CREATE TABLE user (username TEXT, fname TEXT, lname TEXT, password TEXT)"
