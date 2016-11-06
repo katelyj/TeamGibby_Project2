@@ -5,13 +5,13 @@ import hashlib
 ## Looks into the story entries DB for story IDs where the user matches the current user logged in
 ## Returns a list of story IDs that the user is able to read, because they have contributed to them
 
-def storiesICanView():
+def storiesICanView(user):
 
-    f = "database.db"
+    f = "data/database.db"
     db = sqlite3.connect(f)
     og = db.cursor()
     
-    ggg = "SELECT storyId FROM story_entries where user == " + str(session['user']) + ";"
+    ggg = "SELECT storyId FROM story_entries where user == '" + str(user) + "';"
     rara = og.execute(ggg)
     stories = []#list of story IDs you're allowed to choose from
     i = 0
@@ -27,7 +27,7 @@ def storiesICanView():
 ## story ID
 def buttonifyLinks(storyID):
 
-    f = "database.db"
+    f = "data/database.db"
     db = sqlite3.connect(f)
     og = db.cursor()
     
@@ -47,7 +47,7 @@ def buttonifyLinks(storyID):
 ##Returns a form full of buttons to the first 10 stories in the story directory database
 def storiesToAddTo():
 
-    f = "database.db"
+    f = "data/database.db"
     db = sqlite3.connect(f)
     og = db.cursor()
     
