@@ -33,8 +33,8 @@ def checkLogin(username, password):
 def register(username, first, last, password):
 
     f = "data/database.db"
-    db = sqlite3.connect(f)
-    og = db.cursor()
+    db1 = sqlite3.connect(f)
+    og = db1.cursor()
 
     s = "SELECT username, password FROM user"
     t = og.execute(s)
@@ -47,10 +47,9 @@ def register(username, first, last, password):
     #user is not already registered
     insert = "INSERT INTO user VALUES ('%s', '%s', '%s', '%s')"%(username, first, last, hashDis(password))
     og.execute(insert)
+    db1.commit()
+    db1.close()
     return True
-    db.commit()
-    db.close()
 
 
 
-    

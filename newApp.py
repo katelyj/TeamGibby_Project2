@@ -24,7 +24,7 @@ def authorize():
     password = response["password"]
     if auth.checkLogin(username, password): #successfully logged in
         session['user'] = username
-        return redirect(url_for("/"))
+        return redirect(url_for("root"))
     else: #unsuccessful login
         return render_template("login.html", result = "Incorrect username or password.")
 
