@@ -1,17 +1,19 @@
+from flask import Flask, render_template, request, session, redirect, url_for
 import sqlite3
 import hashlib
+
 
 
 ## Looks into the story entries DB for story IDs where the user matches the current user logged in
 ## Returns a list of story IDs that the user is able to read, because they have contributed to them
 
-def storiesICanView():
+def storiesICanView(user):
 
     f = "data/database.db"
     db = sqlite3.connect(f)
     og = db.cursor()
     
-    ggg = "SELECT storyId FROM story_entries where user == " + str(session['user']) + ";"
+    ggg = "SELECT storyId FROM story_entries where user == " + user + ";"
     rara = og.execute(ggg)
     stories = []#list of story IDs you're allowed to choose from
     i = 0

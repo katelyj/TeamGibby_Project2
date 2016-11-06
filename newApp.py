@@ -45,14 +45,14 @@ def createaccount():
 def main():
 
     #stories to view
-    stories_toview = main.storiesICanView
-    if len(stories.toview) != 0:
-        stories_toview_links = main.buttonifyLinks(stories_toview) 
+    stories_toview = mainpage.storiesICanView(session['user'])
+    if len(stories_toview) != 0:
+        stories_toview_links = mainpage.buttonifyLinks(stories_toview) 
     else: 
         stories_toview_links = "You haven't added to any stories yet!"
 
     ##stories to add to
-    stories_toadd_links = main.storiesToAddTo()
+    stories_toadd_links = mainpage.storiesToAddTo()
     return render_template("template.html", viewlinks = stories_toview_links, addlinks = stories_toadd_links)
     
 
