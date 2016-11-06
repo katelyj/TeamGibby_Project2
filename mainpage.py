@@ -1,5 +1,3 @@
-from flask import Flask, render_template, request, session, redirect, url_for
-from utils import add, auth
 import sqlite3
 import hashlib
 
@@ -7,9 +5,9 @@ import hashlib
 ## Looks into the story entries DB for story IDs where the user matches the current user logged in
 ## Returns a list of story IDs that the user is able to read, because they have contributed to them
 
-def storiesIcanView():
+def storiesICanView():
 
-    f = "database.db"
+    f = "data/database.db"
     db = sqlite3.connect(f)
     og = db.cursor()
     
@@ -29,7 +27,7 @@ def storiesIcanView():
 ## story ID
 def buttonifyLinks(storyID):
 
-    f = "database.db"
+    f = "data/database.db"
     db = sqlite3.connect(f)
     og = db.cursor()
     
@@ -47,9 +45,9 @@ def buttonifyLinks(storyID):
 
 
 ##Returns a form full of buttons to the first 10 stories in the story directory database
-def stories2Add2():
+def storiesToAddTo():
 
-    f = "database.db"
+    f = "data/database.db"
     db = sqlite3.connect(f)
     og = db.cursor()
     

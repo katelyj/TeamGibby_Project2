@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, session, redirect, url_for
-from utils import add, auth, main
+from utils import add, auth, mainpage
 import sqlite3
 import hashlib
 
@@ -12,18 +12,34 @@ def root():
         return redirect(url_for("main"))
     return redirect(url_for("login"))
 
-@app.route("/login/", methods = ["POST"])
+@app.route("/login/", methods = ["POST", "GET"])
 def login():
+    return render_template("login.html", result = "")
+
+
+@app.route("/authorize/", methods = ["POST"])
+def authorize():
     response = request.form
     username = response["user"]
     password = response["password"]
-          
     if auth.checkLogin(username, password): #successfully logged in
         session['user'] = username
         return redirect(url_for("/"))
-        
     else: #unsuccessful login
         return render_template("login.html", result = "Incorrect username or password.")
+
+
+@app.route("/createnewacc/", methods = ["POST"])
+def createaccount():
+    response = request.form
+    username = response["user"]
+    first = response["first"]
+    last = response["last"]
+    password = response["password"]
+    if (auth.register(username, first, last, password)):
+        return render_template("login.html", result = "account successfully created")
+    else:
+        return render_template("login.html", result = "Sorry, this username has already been taken")
 
 @app.route("/main/")
 def main():
