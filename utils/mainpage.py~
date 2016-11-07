@@ -7,12 +7,12 @@ def wholeStory(storyID):
     f = "data/database.db"
     db = sqlite3.connect(f)
     og = db.cursor()
-    command = "SELECT content, entryNum FROM story_entries WHERE storyID ==" + storyID
+    command = "SELECT content, entryNum FROM story_entries WHERE storyID ==" + str(storyID)
     alvin = og.execute(command)
     RetStr = ""
     for chipmunks in alvin:
-        RetStr += "Entry " + str(chipmunks[1])
-        RetStr += ": " + chipmunks[0]
+        RetStr += "<br>Entry " + str(chipmunks[1])
+        RetStr += ": " + chipmunks[0] 
     db.close()
     return RetStr
         
@@ -103,6 +103,7 @@ def storiesToAddTo(user):
     command2 = "SELECT storyID from story_entries WHERE user == '" + user + "'"
     lexie = og.execute(command2)
     for idk in lexie:
-        listA.remove(idk[0])
+        if (idk[0] in listA):
+            listA.remove(idk[0])
     return listA
     db.close()

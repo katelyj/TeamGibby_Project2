@@ -50,10 +50,6 @@ def addEntry(storyId, entryNum, user, entryText):
 	db = sqlite3.connect(f)
 	og = db.cursor()
 	command = "INSERT INTO story_entries VALUES(%d, %d, '%s', '%s')"%(storyId, entryNum, user, entryText)	
-	print storyId
-	print entryNum
-	print user
-	print entryText
 	og.execute(command)
 	db.commit()
         db.close()
