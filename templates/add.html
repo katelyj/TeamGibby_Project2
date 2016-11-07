@@ -2,26 +2,10 @@
 
 {% block content %}
 
-<form action = '/add/done/' method = "POST">
-<center>
 
-	<h2><b>  {{title}}  by {{user}} <b> </h2>
 
-<br> 
-<b> Pick up where {{user}} left off... </b>
-<br>
-	{{lastEntry}}
+ {{addlinks}} 
 
-<br> <br>
-</center>
 
-	<b>Get Creative with your next entry!</b> <br>
-
-	<textarea rows="6" cols="100" name="entry2Add">
-	Enter text here...</textarea>
-	<br>
-	<input type="submit" name="enter" value="Submit">
-
-</form> 
 
 {% endblock %}

@@ -52,8 +52,7 @@ def main():
         stories_toview_links = "You haven't added to any stories yet!"
 
     ##stories to add to
-    stories_toadd_links = mainpage.storiesToAddTo()
-    return render_template("main.html", viewlinks = stories_toview_links, addlinks = stories_toadd_links)
+    return render_template("main.html", viewlinks = stories_toview_links)
     
 
 @app.route("/logout/", methods = ["POST"])
@@ -72,15 +71,21 @@ def view():
 
 @app.route("/add/")
 def add():
+    stories_toadd_links = mainpage.storiesToAddTo()
+    return render_template("add.html", addlinks = stories_toadd_links)
+
+
+@app.route("/add/form/")
+def add_inprogress():
     ID = request.form['storytoaddto']
     session['id'] = ID
     stufftorender = add.return_Last_Entry_and_title_user(ID)
-    return render_template("add.html", title = stufftorender[0] , user = stufftorender[1], lastEntry = stufftorender[2])
+    return render_template("addform.html", title = stufftorender[0] , user = stufftorender[1], lastEntry = stufftorender[2])
+    ##Adds story entry to the DB, returns to main
+    ## story_entries (storyID INTEGER, entrynum INT, user TEXT, content TEXT)
 
 @app.route("/add/done/")
 def add_done():
-    ##Adds story entry to the DB, returns to main
-    ## story_entries (storyID INTEGER, entrynum INT, user TEXT, content TEXT)
     entrytext = request.form['entry2Add']
     user = session['user']
     storyid = session['id']
@@ -89,8 +94,7 @@ def add_done():
     session.pop('id')
     return redirect(url_for("root"))
 
-
-@app.route("/create/done/")
+@app.route("/create/done/", methods = ["GET","POST"])
 def create_done():
     return redirect(url_for("root"))
     ##Adds story entry to the DB

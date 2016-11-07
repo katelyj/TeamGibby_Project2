@@ -51,7 +51,7 @@ def storiesToAddTo():
     db = sqlite3.connect(f)
     og = db.cursor()
     
-    Str = "form action= '/add/'>"
+    Str = "form action= '/add/done/'>"
     command = "SELECT Title, creator, storyID FROM story_directory"
     markSloan = og.execute(command)
     num = 0
