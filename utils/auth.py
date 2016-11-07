@@ -58,12 +58,13 @@ def changeP(username, oldP, newP):
 
     s = "SELECT * FROM user WHERE username == '" + username + "'"
     t = og.execute(s)
-    if hashDis(oldP) == t[3]:
-        replace = "UPDATE user SET password = " + hashDis(newP) + " WHERE username == '" + username + "'"
-        og.execute(replace)
-        db2.commit()
-        db2.close()
-        return True
-    else:
-        return False
+    for x in t:
+        if hashDis(oldP) == x[3]:
+            replace = "UPDATE user SET password = '" + hashDis(newP) + "' WHERE username == '" + username + "'"
+            og.execute(replace)
+            db2.commit()
+            db2.close()
+            return True
+        else:
+            return False
     

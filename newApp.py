@@ -105,9 +105,10 @@ def settings():
 
 @app.route("/changePass/", methods = ["POST"])
 def changePass():
- #   if changeP(request.form[
-    return render_template("main.html", message = "password changed")
-
+    if auth.changeP(session['user'], request.form['old'], request.form['new']):
+        return render_template("main.html", message = "password changed")
+    else:
+        return render_template("main.html", message = "old password incorrect")
 if __name__ == "__main__":
     app.debug = True
     app.run()
