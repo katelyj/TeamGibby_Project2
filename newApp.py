@@ -91,9 +91,9 @@ def add_done():
     session.pop('id')
     return redirect(url_for("root"))
 
-@app.route("/create/done/", methods = ["GET","POST"])
-def create_done():
-    return redirect(url_for("root"))
+#@app.route("/create/done/", methods = ["GET","POST"])
+#def create_done():
+    #return redirect(url_for("root"))
     ##Adds story entry to the DB
 
 @app.route("/settings/")
