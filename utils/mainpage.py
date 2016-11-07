@@ -30,16 +30,16 @@ def buttonifyLinks(storyID):
     f = "data/database.db"
     db = sqlite3.connect(f)
     og = db.cursor()
-    
     Str = "<form action = '/view/'>" 
-    command = "SELECT Title, user, storyId FROM story_directory WHERE storyId == " + str(storyID)+ ""
-    poe = og.execute(command)
-    for item in poe:
-        f = ""
-        f+= item[0] + " , by "
-       # f+= item[1] + 
-        Str += "<button type = 'submit' name = 'storytoread' value = " + str(item[2]) + ">  " + f + "</button>"
-        Str+= "<br>"
+    for i in storyID:
+        command = "SELECT title, creator, storyID FROM story_directory WHERE storyId == " + str(i)
+        poe = og.execute(command)
+        for item in poe:
+            f = ""
+            f+= item[0] + " , by "
+            f+= item[1] 
+            Str += "<button type = 'submit' name = 'storytoread' value = " + str(item[2]) + ">  " + f + "</button>"
+            Str+= "<br>"
     Str += " </form>  "
     db.close()
 
@@ -51,7 +51,7 @@ def storiesToAddTo():
     db = sqlite3.connect(f)
     og = db.cursor()
     
-    Str = "form action= '/add/done/'>"
+    Str = "<form action= '/add/done/'> "
     command = "SELECT Title, creator, storyID FROM story_directory"
     markSloan = og.execute(command)
     num = 0
@@ -66,4 +66,5 @@ def storiesToAddTo():
         else:
             break
     Str+= "</form>"
+    return Str
     db.close()
