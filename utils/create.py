@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, session, redirect, url_for
 import sqlite3
 
 
+
+#finding the maximum storyID
 def findNextStoryID():
     f = "data/database.db"
     db = sqlite3.connect(f)
@@ -11,6 +13,9 @@ def findNextStoryID():
     for item in maxStoryID:
         return item[0] + 1
 
+
+
+#adding a new story to the database
 def addNewStory(storyID, title, creator, content):
     f = "data/database.db"
     db = sqlite3.connect(f)

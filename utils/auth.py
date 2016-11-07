@@ -1,13 +1,14 @@
 import hashlib
 import sqlite3
 
-
+#hasing passwords
 def hashDis(x):
     h = hashlib.sha256()
     h.update(x)
     return h.hexdigest()
 
 
+#authenticating a user
 def checkLogin(username, password):
 
     f = "data/database.db"
@@ -30,6 +31,8 @@ def checkLogin(username, password):
     db.close()
     return False
 
+
+#registering a new user
 def register(username, first, last, password):
 
     f = "data/database.db"
@@ -51,6 +54,7 @@ def register(username, first, last, password):
     db.close()
     return True
 
+#changing a user's password
 def changeP(username, oldP, newP):
     f = "data/database.db"
     db = sqlite3.connect(f)

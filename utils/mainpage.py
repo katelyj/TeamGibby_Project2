@@ -2,7 +2,7 @@ import sqlite3
 import hashlib
 
 
-
+#getting an entire story from the database
 def wholeStory(storyID):
     f = "data/database.db"
     db = sqlite3.connect(f)
@@ -17,7 +17,7 @@ def wholeStory(storyID):
         
     
 
-
+#finding who has contributed to said story
 def contributed(username, storyID):
     f = "data/database.db"
     db = sqlite3.connect(f)
@@ -33,6 +33,9 @@ def contributed(username, storyID):
     db.close()
     return ret
 
+
+
+#find whether story ID exists
 def storyIDExist(storyID):
     f = "data/database.db"
     db = sqlite3.connect(f)
@@ -44,8 +47,10 @@ def storyIDExist(storyID):
         return False
     else: 
         return True
-## Looks into the story entries DB for story IDs where the user matches the current user logged in
-## Returns a list of story IDs that the user is able to read, because they have contributed to them
+
+
+#looks into the story entries DB for story IDs where the user matches the current user logged in
+#returns a list of story IDs that the user is able to read, because they have contributed to them
 
 def storiesICanView(user):
 
@@ -64,9 +69,9 @@ def storiesICanView(user):
     return stories
 
 
-## Takes a list of (int) story ids, searches in the story directory for the stories you can view, because you have contributed to them
-## returns a form full of buttons, where each button has the text "title, by user" , is named storytoread, and is matched with it's 
-## story ID
+#takes a list of (int) story ids, searches in the story directory for the stories you can view, because you have contributed to them
+#returns a form full of buttons, where each button has the text "title, by user" , is named storytoread, and is matched with it's
+#story ID
 def buttonifyLinks(storyID):
 
     f = "data/database.db"
@@ -86,7 +91,7 @@ def buttonifyLinks(storyID):
     db.close()
 
 
-##Returns a form full of buttons to the first 10 stories in the story directory database
+#returns a form full of buttons to the first 10 stories in the story directory database
 def storiesToAddTo(user):
 
     f = "data/database.db"
