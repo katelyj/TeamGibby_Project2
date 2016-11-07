@@ -78,7 +78,8 @@ def story(storyid):
         user = session['user']
         entry = add.findNextEntryNum(storyid)
         story = request.form['story']
-        add.addEntry(int(storyid), entry, user, story)
+        storyid = int(storyid)
+        add.addEntry(storyid, entry, user, story)
         li = add.return_Last_Entry_and_title_user(storyid)
         return render_template("story.html", title = li[0], story = mainpage.wholeStory(storyid), write=False, loggedIn=True)
 

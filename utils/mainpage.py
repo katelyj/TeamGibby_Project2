@@ -7,7 +7,7 @@ def wholeStory(storyID):
     f = "data/database.db"
     db = sqlite3.connect(f)
     og = db.cursor()
-    command = "SELECT content, entryNum FROM story_entries WHERE storyID ==" + storyID
+    command = "SELECT content, entryNum FROM story_entries WHERE storyID ==" + str(storyID)
     alvin = og.execute(command)
     RetStr = ""
     for chipmunks in alvin:
