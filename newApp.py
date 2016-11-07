@@ -115,7 +115,8 @@ def createrstoriesdb():
         creator = session['user']
         content = request.form['content']
         create.addNewStory(newStoryID, title, creator, content)
-        
+        return redirect(url_for("main"))
+
 if __name__ == "__main__":
     app.debug = True
     app.run()
