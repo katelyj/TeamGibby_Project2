@@ -14,18 +14,21 @@ Users can either start a new story, add to an existing one (while only being abl
 Have fun!
 
 
-Database Info: 
+##Database Info
 
-Tables: user, story_directory, story_entries
 
-Columns for user:
+**Tables:** 
+
+user, story_directory, story_entries
+
+**Columns for user:** 
 
 username, fname, lname, password
 
-Columns for story_directory:
+**Columns for story_directory:**
 
 storyID, title, creator, timestamp
 
-Columns for story_entries:
+**Columns for story_entries:**
 
 storyID, entrynum, user, timestamp, content
