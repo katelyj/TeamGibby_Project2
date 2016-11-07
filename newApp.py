@@ -102,24 +102,20 @@ def settings():
 
 @app.route("/changePass/", methods = ["POST"])
 def changePass():
-<<<<<<< HEAD
- #   if changeP(request.form[
-    return render_template("main.html", message = "password changed")
+    if auth.changeP(session['user'], request.form['old'], request.form['new']):
+        return render_template("main.html", message = "password changed")
+    else:
+        return render_template("main.html", message = "old password incorrect")
 
 @app.route("/createstoriesdb", methods = ['POST', 'GET'])
 def createrstoriesdb():
     if request.method == 'POST':
         newStoryID = create.findNextStoryID()
-        creator = session['user']
         title = request.form['title']
+        creator = session['user']
         content = request.form['content']
-
-=======
-    if auth.changeP(session['user'], request.form['old'], request.form['new']):
-        return render_template("main.html", message = "password changed")
-    else:
-        return render_template("main.html", message = "old password incorrect")
->>>>>>> origin/master
+        create.addNewStory(newStoryID, title, creator, content)
+        
 if __name__ == "__main__":
     app.debug = True
     app.run()
