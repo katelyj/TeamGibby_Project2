@@ -10,33 +10,26 @@
       <div id="title-image">
 	<img src="/static/img/title.png" height="70">
       </div>
-
       <div id="button-space">
 	<form action="/">
 	  <input class="navbar-button" type="submit" value="Home">
 	</form>
-	<form action="/createstories/">
+	<form action="/newStory/">
 	  <input class="navbar-button" type="submit" value="Create">
-	</form>
-	<form action="/add/">
-	  <input class="navbar-button" type="submit" value="Add">
-	</form>
-	<form action="/view/">
-	  <input class="navbar-button" type="submit" value="View">
 	</form>
 	<form action="/settings/">
 	  <input class="navbar-button" type="submit" value="Settings">
 	</form>
+	{%if loggedIn==True %}
 	<form action="/logout/">
 	  <input class="navbar-button" type="submit" value="Logout">
 	</form>
-
+	{%endif %}
       </div>
     </div>
     {% block content %}
     {% endblock %}
-    <div id="footer">
-    </div>
+
   </body>
   
 </html>

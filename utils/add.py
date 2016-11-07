@@ -19,7 +19,7 @@ def findNextEntryNum(storyID):
 			maxlis = manz[0]
     
         db.close()
-	return maxLis + 1
+	return maxlis + 1
 
 
 def return_Last_Entry_and_title_user(ID):

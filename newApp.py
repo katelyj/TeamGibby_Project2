@@ -6,13 +6,14 @@ import hashlib
 app = Flask(__name__)
 app.secret_key = "Asdfasdfasdf"
 
-@app.route("/")
+@app.route("/")## i think this is fine
 def root():
-    for user in session: 
-        return redirect(url_for("main"))
+    if 'user' in session: 
+        return redirect(url_for("home"))
     return redirect(url_for("login"))
+    
 
-@app.route("/login/", methods = ["POST", "GET"])
+@app.route("/login/")
 def login():
     return render_template("login.html", result = "")
 
@@ -26,7 +27,9 @@ def authorize():
         session['user'] = username 
         return redirect(url_for("root"))
     else: #unsuccessful login
-        return render_template("login.html", result = "Incorrect username or password.")
+        return render_template("login.html", result = "Incorrect username or password.", loggedIn=False)
+
+
 
 
 @app.route("/createnewacc/", methods = ["POST"])
@@ -37,34 +40,80 @@ def createaccount():
     last = response["last"]
     password = response["password"]
     if (auth.register(username, first, last, password)):
-        return render_template("login.html", result = "account successfully created")
+        return render_template("login.html", result = "account successfully created", loggedIn=False)
     else:
-        return render_template("login.html", result = "Sorry, this username has already been taken")
+        return render_template("login.html", result = "Sorry, this username has already been taken", loggedIn=True)
 
-@app.route("/main/")
-def main():
-    return render_template("main.html")
-    
 
-@app.route("/logout/", methods = ["POST"])
-def logout():
-    if request.form["enter"] == "logout":
-        session.pop("user")
-    return redirect(url_for("auth"))
 
-@app.route("/createstories/", methods = ["GET", "POST"])
-def create():
-    return render_template("create.html")
+@app.route("/home/")#lists the stories that can be added to / viewed / button for creating new story LOL THIS IS WHAT IT WAS ORIGINALLY
+def home():
+    return render_template("main.html", addlinks = mainpage.storiesToAddTo(session['user']) , viewlinks = mainpage.storiesICanView(session['user']), loggedIn=True)
 
+
+@app.route("/newStory/", methods=["GET","POST"])# new stories
+def newStory():
+    if request.method == "GET":
+        return render_template("newStory.html", loggedIn=True)
+    else:
+        title = request.form["title"]
+        story = request.form["story"]
+        user = session['user']
+        storyid = create.findNextStoryID()
+        create.addNewStory(storyid, title, user, story)
+        return redirect("/story/" + str(storyid))
+
+@app.route("/story/<storyid>/", methods=["GET","POST"]) # where the story is added and stuff
+def story(storyid):
+    if request.method == "GET":
+        if mainpage.contributed(session['user'], storyid):
+            li = add.return_Last_Entry_and_title_user(storyid)
+            return render_template("story.html",title = li[0], story = mainpage.wholeStory(storyid), write=False, loggedIn=True) #CHANGE LATER FOR INPUTS
+        else: 
+            li = add.return_Last_Entry_and_title_user(storyid)
+            return render_template("story.html", title = li[0], lastEntry = li[2], write=True, loggedIn=True)
+    else:
+        user = session['user']
+        entry = add.findNextEntryNum(storyid)
+        story = request.form['story']
+        add.addEntry(storyid, entry, user, story)
+        li = add.return_Last_Entry_and_title_user(storyid)
+        return render_template("story.html", title = li[0], story = mainpage.wholeStory(storyid), write=False, loggedIn=True)
+
+
+
+@app.route("/settings/")
+def settings():
+    return render_template("settings.html")
+
+
+@app.route("/changePass/", methods = ["POST"])
+def changePass():
+    if auth.changeP(session['user'], request.form['old'], request.form['new']):
+        return render_template("main.html", message = "password changed")
+    else:
+        return render_template("main.html", message = "old password incorrect")
+        
 @app.route("/view/")
 def view():
     stories_toview = mainpage.storiesICanView(session['user'])
-    if len(stories_toview) != 0:
-        stories_toview_links = mainpage.buttonifyLinks(stories_toview) 
-    else: 
-        stories_toview_links = "You haven't added to any stories yet!"
-
     return render_template("view.html", viewlinks = stories_toview_links)
+
+
+
+@app.route("/logout/", methods = ["GET","POST"])
+def logout():
+    session.pop("user")
+    return redirect(url_for("root"))
+
+        
+if __name__ == "__main__":
+    app.debug = True
+    app.run()
+
+#-----------------------------------------------------------------------------
+#EVERYTHING WORKS ABOVE THIS LINE (Hopefully)
+
 
 @app.route("/add/")
 def add():
@@ -91,22 +140,13 @@ def add_done():
     session.pop('id')
     return redirect(url_for("root"))
 
-#@app.route("/create/done/", methods = ["GET","POST"])
-#def create_done():
-    #return redirect(url_for("root"))
-    ##Adds story entry to the DB
 
-@app.route("/settings/")
-def settings():
-    return render_template("settings.html")
-
-@app.route("/changePass/", methods = ["POST"])
-def changePass():
-    if auth.changeP(session['user'], request.form['old'], request.form['new']):
-        return render_template("main.html", message = "password changed")
-    else:
-        return render_template("main.html", message = "old password incorrect")
-
+#create new stories
+@app.route("/createstories/", methods = ["GET", "POST"])
+def create():
+    return render_template("create.html")
+    
+#add new stories to the database
 @app.route("/createstoriesdb", methods = ['POST', 'GET'])
 def createrstoriesdb():
     if request.method == 'POST':
@@ -117,6 +157,3 @@ def createrstoriesdb():
         create.addNewStory(newStoryID, title, creator, content)
         return redirect(url_for("main"))
 
-if __name__ == "__main__":
-    app.debug = True
-    app.run()

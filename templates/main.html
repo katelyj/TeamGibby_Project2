@@ -2,13 +2,21 @@
 
 {% block content %}
 
-{{ message }}
+<h1> Add to a Story!</h1>
 
 
-{{ viewlinks }}
-<br>
-<br>
-
-{{ addlinks }}
-
+    
+    {% for item in addlinks %}
+        <a href = "/story/{{item}}/">story {{item}}</a>
+        <br>
+    {% endfor %}
+    
+    
+    
+<h1> View Stories You've Contributed to!</h1>    
+    {% for item in viewlinks %}
+        <a href = "/story/{{item}}/">story {{item}}</a>
+        <br> 
+    {% endfor %}    
+    
 {% endblock %}

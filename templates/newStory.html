@@ -1,0 +1,13 @@
+{% extends "template.html" %}
+
+{% block content %}
+    
+    <h1> Your journey begins... </h1>
+    
+    <form action="/newStory/" method="post" style="display: block;">
+        <input type="text" name="title" class="form-control" placeholder="Title" required>
+        <textarea name="story" rows="5" maxlength="200" placeholder="Your journey begins..." required></textarea>
+        <input type="submit" name="submit" value="Submit">
+    </form>
+
+{% endblock %}

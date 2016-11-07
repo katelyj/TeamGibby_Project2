@@ -9,7 +9,7 @@ def findNextStoryID():
     command = "SELECT MAX(storyID) FROM story_directory"
     maxStoryID = og.execute(command)
     for item in maxStoryID:
-        return item[0] + 1
+        return item[0]
 
 def addNewStory(storyID, title, creator, content):
     f = "data/database.db"
