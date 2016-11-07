@@ -3,7 +3,15 @@
 {% block content %}
 <center>
     <h1> {{title}} </h1>
-    <div> {{story}} </div>
+    <div style="color:#274C77"> 
+        <h4>
+        {% for item in story %}
+        {{item}}
+        <br>
+        <br>
+        {% endfor %}
+        </h4>
+    </div>
     <form action="." method="post" style="display: block;">
         {%if write==True %}    
         <h2> Check out the last Entry! </h2>

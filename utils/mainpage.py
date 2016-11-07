@@ -9,12 +9,11 @@ def wholeStory(storyID):
     og = db.cursor()
     command = "SELECT content, entryNum FROM story_entries WHERE storyID ==" + str(storyID)
     alvin = og.execute(command)
-    RetStr = ""
+    liz = []
     for chipmunks in alvin:
-        RetStr += "Entry " + str(chipmunks[1])
-        RetStr += ": " + chipmunks[0] + "\n" 
+        liz.append("Entry " + str(chipmunks[1]) + ": " + chipmunks[0])
     db.close()
-    return RetStr
+    return liz
         
     
 
