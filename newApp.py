@@ -6,17 +6,23 @@ import hashlib
 app = Flask(__name__)
 app.secret_key = "Asdfasdfasdf"
 
+#root
+
 @app.route("/")## i think this is fine
 def root():
     if 'user' in session: 
         return redirect(url_for("home"))
     return redirect(url_for("login"))
-    
+
+
+#login
 
 @app.route("/login/")
 def login():
     return render_template("login.html", result = "")
 
+
+#authenticate users
 
 @app.route("/authorize/", methods = ["POST"])
 def authorize():
@@ -31,7 +37,7 @@ def authorize():
 
 
 
-
+#registering a new user
 @app.route("/createnewacc/", methods = ["POST"])
 def createaccount():
     response = request.form
@@ -46,11 +52,14 @@ def createaccount():
 
 
 
-@app.route("/home/")#lists the stories that can be added to / viewed / button for creating new story LOL THIS IS WHAT IT WAS ORIGINALLY
+#homepage for logged in users
+@app.route("/home/")
 def home():
     return render_template("main.html", addlinks = mainpage.storiesToAddTo(session['user']) , viewlinks = mainpage.storiesICanView(session['user']), loggedIn=True)
 
 
+
+#making a new story
 @app.route("/newStory/", methods=["GET","POST"])# new stories
 def newStory():
     if request.method == "GET":
@@ -63,6 +72,9 @@ def newStory():
         create.addNewStory(storyid, title, user, story)
         return redirect("/story/" + str(storyid))
 
+
+
+#variable link of a story
 @app.route("/story/<storyid>/", methods=["GET","POST"]) # where the story is added and stuff
 def story(storyid):
     if request.method == "GET":
@@ -85,11 +97,12 @@ def story(storyid):
 
 
 
+#account settings
 @app.route("/settings/")
 def settings():
     return render_template("settings.html")
 
-
+#changing a password
 @app.route("/changePass/", methods = ["POST"])
 def changePass():
     if auth.changeP(session['user'], request.form['old'], request.form['new']):
@@ -97,12 +110,14 @@ def changePass():
     else:
          return render_template("main.html", message = "incorrect old password", addlinks = mainpage.storiesToAddTo(session['user']) , viewlinks = mainpage.storiesICanView(session['user']), loggedIn=True)
 
+
+#logging out
 @app.route("/logout/", methods = ["GET","POST"])
 def logout():
     session.pop("user")
     return redirect(url_for("root"))
 
-        
+
 if __name__ == "__main__":
     app.debug = True
     app.run()
