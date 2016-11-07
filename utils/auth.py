@@ -33,8 +33,8 @@ def checkLogin(username, password):
 def register(username, first, last, password):
 
     f = "data/database.db"
-    db1 = sqlite3.connect(f)
-    og = db1.cursor()
+    db = sqlite3.connect(f)
+    og = db.cursor()
 
     s = "SELECT username FROM user"
     t = og.execute(s)
@@ -47,14 +47,14 @@ def register(username, first, last, password):
     #user is not already registered
     insert = "INSERT INTO user VALUES ('%s', '%s', '%s', '%s')"%(username, first, last, hashDis(password))
     og.execute(insert)
-    db1.commit()
-    db1.close()
+    db.commit()
+    db.close()
     return True
 
 def changeP(username, oldP, newP):
     f = "data/database.db"
-    db2 = sqlite3.connect(f)
-    og = db2.cursor()
+    db = sqlite3.connect(f)
+    og = db.cursor()
 
     s = "SELECT * FROM user WHERE username == '" + username + "'"
     t = og.execute(s)
@@ -62,8 +62,8 @@ def changeP(username, oldP, newP):
         if hashDis(oldP) == x[3]:
             replace = "UPDATE user SET password = '" + hashDis(newP) + "' WHERE username == '" + username + "'"
             og.execute(replace)
-            db2.commit()
-            db2.close()
+            db.commit()
+            db.close()
             return True
         else:
             return False

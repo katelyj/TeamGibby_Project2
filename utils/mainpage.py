@@ -12,7 +12,7 @@ def wholeStory(storyID):
     RetStr = ""
     for chipmunks in alvin:
         RetStr += "Entry " + str(chipmunks[1])
-        RetStr += ": " + chipmunks[0] 
+        RetStr += ": " + chipmunks[0] + "\n" 
     db.close()
     return RetStr
         
