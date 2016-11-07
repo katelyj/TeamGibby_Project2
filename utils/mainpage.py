@@ -103,6 +103,7 @@ def storiesToAddTo(user):
     command2 = "SELECT storyID from story_entries WHERE user == '" + user + "'"
     lexie = og.execute(command2)
     for idk in lexie:
-        listA.remove(idk[0])
+        if (idk[0] in listA):
+            listA.remove(idk[0])
     return listA
     db.close()
