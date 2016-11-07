@@ -3,12 +3,18 @@
 {% block content %}
 <center>
     <h1> {{title}} </h1>
-    <div> {{story}} {{lastEntry}}</div>
+    <div> {{story}} </div>
     <form action="." method="post" style="display: block;">
         {%if write==True %}    
+        <h2> Check out the last Entry! </h2>
+        <br>
+        {{lastEntry}}
+        <br>
+        <br>
         <textarea name="story" id="textarea" rows="6" maxlength="100" placeholder="Continue the story" required></textarea>
-        {%endif %}
         <input type="submit" name="submit" Value="Submit">
+        {%endif %}
+        
     </form>
     
 </center>

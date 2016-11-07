@@ -26,14 +26,14 @@ def return_Last_Entry_and_title_user(ID):
 	f = "data/database.db"
 	db = sqlite3.connect(f)
 	og = db.cursor()
-	command = "SELECT title, creator FROM story_directory WHERE storyID ==" + str(ID) + ""
+	command = "SELECT title, creator FROM story_directory WHERE storyID ==" + ID
 	meredithGrey = og.execute(command)
 	li = []
 	for scalpel in meredithGrey:
 		li.append(scalpel[0])
 		li.append(scalpel[1])
 
-	command2 = "SELECT content, entryNum FROM story_entries WHERE storyID ==" + str(ID) + ""
+	command2 = "SELECT content, entryNum FROM story_entries WHERE storyID ==" + ID 
 	cristinaYang = og.execute(command2)
 	li2 = []
 	for tenblade in cristinaYang:
