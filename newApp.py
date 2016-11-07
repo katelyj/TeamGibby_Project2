@@ -93,16 +93,9 @@ def settings():
 @app.route("/changePass/", methods = ["POST"])
 def changePass():
     if auth.changeP(session['user'], request.form['old'], request.form['new']):
-        return render_template("main.html", message = "password changed")
+        return render_template("main.html", message = "password changed", addlinks = mainpage.storiesToAddTo(session['user']) , viewlinks = mainpage.storiesICanView(session['user']), loggedIn=True)
     else:
-        return render_template("main.html", message = "old password incorrect")
-        
-@app.route("/view/")
-def view():
-    stories_toview = mainpage.storiesICanView(session['user'])
-    return render_template("view.html", viewlinks = stories_toview_links)
-
-
+         return render_template("main.html", message = "incorrect old password", addlinks = mainpage.storiesToAddTo(session['user']) , viewlinks = mainpage.storiesICanView(session['user']), loggedIn=True)
 
 @app.route("/logout/", methods = ["GET","POST"])
 def logout():
@@ -113,50 +106,4 @@ def logout():
 if __name__ == "__main__":
     app.debug = True
     app.run()
-
-#-----------------------------------------------------------------------------
-#EVERYTHING WORKS ABOVE THIS LINE (Hopefully)
-
-
-@app.route("/add/")
-def add():
-    stories_toadd_links = mainpage.storiesToAddTo()
-    return render_template("add.html", addlinks = stories_toadd_links)
-
-
-@app.route("/add/form/")
-def add_inprogress():
-    ID = request.form['storytoaddto']
-    session['id'] = ID
-    stufftorender = add.return_Last_Entry_and_title_user(ID)
-    return render_template("addform.html", title = stufftorender[0] , user = stufftorender[1], lastEntry = stufftorender[2])
-    ##Adds story entry to the DB, returns to main
-    ## story_entries (storyID INTEGER, entrynum INT, user TEXT, content TEXT)
-
-@app.route("/add/done/")
-def add_done():
-    entrytext = request.form['entry2Add']
-    user = session['user']
-    storyid = session['id']
-    entrynum = add.findNextEntryNum(storyid)
-    add.addEntry(storyid, entrynum, user, entrytext)
-    session.pop('id')
-    return redirect(url_for("root"))
-
-
-#create new stories
-@app.route("/createstories/", methods = ["GET", "POST"])
-def create():
-    return render_template("create.html")
-    
-#add new stories to the database
-@app.route("/createstoriesdb", methods = ['POST', 'GET'])
-def createrstoriesdb():
-    if request.method == 'POST':
-        newStoryID = create.findNextStoryID()
-        title = request.form['title']
-        creator = session['user']
-        content = request.form['content']
-        create.addNewStory(newStoryID, title, creator, content)
-        return redirect(url_for("main"))
 

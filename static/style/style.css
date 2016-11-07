@@ -11,7 +11,7 @@ form {
 #title-image {
     height: 70px;
     width: 40%;
-    float: left;
+    float: right;
     display: inline;
 }
 
@@ -27,9 +27,10 @@ form {
     margin: 0px 0px 0px 0px;
     padding: 0;
     border: inherit;
-    width: 60%;
+    width: 10%;
     height: 70%;
-    float:left;
+ d   float:left;
+    display: inline;
 }
 
 #footer {
