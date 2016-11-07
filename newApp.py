@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, session, redirect, url_for
-from utils import add, auth, mainpage
+from utils import add, auth, mainpage, create
 import sqlite3
 import hashlib
 
@@ -107,6 +107,14 @@ def settings():
 def changePass():
  #   if changeP(request.form[
     return render_template("main.html", message = "password changed")
+
+@app.route("/createstoriesdb", methods = ['POST', 'GET'])
+def createrstoriesdb():
+    if request.method == 'POST':
+        newStoryID = create.findNextStoryID()
+        creator = session['user']
+        title = request.form['title']
+        content = request.form['content']
 
 if __name__ == "__main__":
     app.debug = True
