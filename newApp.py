@@ -43,16 +43,7 @@ def createaccount():
 
 @app.route("/main/")
 def main():
-
-    #stories to view
-    stories_toview = mainpage.storiesICanView(session['user'])
-    if len(stories_toview) != 0:
-        stories_toview_links = mainpage.buttonifyLinks(stories_toview) 
-    else: 
-        stories_toview_links = "You haven't added to any stories yet!"
-
-    ##stories to add to
-    return render_template("main.html", viewlinks = stories_toview_links)
+    return render_template("main.html")
     
 
 @app.route("/logout/", methods = ["POST"])
@@ -67,7 +58,13 @@ def create():
 
 @app.route("/view/")
 def view():
-    return render_template("view.html")
+    stories_toview = mainpage.storiesICanView(session['user'])
+    if len(stories_toview) != 0:
+        stories_toview_links = mainpage.buttonifyLinks(stories_toview) 
+    else: 
+        stories_toview_links = "You haven't added to any stories yet!"
+
+    return render_template("view.html", viewlinks = stories_toview_links)
 
 @app.route("/add/")
 def add():
