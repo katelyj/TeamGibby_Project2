@@ -11,7 +11,7 @@ def wholeStory(storyID):
     alvin = og.execute(command)
     RetStr = ""
     for chipmunks in alvin:
-        RetStr += "Entry " + chipmunks[1]
+        RetStr += "Entry " + str(chipmunks[1])
         RetStr += ": " + chipmunks[0]
     db.close()
     return RetStr

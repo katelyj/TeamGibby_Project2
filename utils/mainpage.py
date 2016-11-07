@@ -28,6 +28,7 @@ def contributed(username, storyID):
     stuff = og.execute(q)
     ret = False
     for thing in stuff:
+	print thing[0]
         if thing[0] == username:
             ret = True
     db.close()

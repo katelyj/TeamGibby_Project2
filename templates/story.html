@@ -3,8 +3,7 @@
 {% block content %}
 <center>
     <h1> {{title}} </h1>
-    
-    {{story}}
+    <div> {{story}} {{lastEntry}}</div>
     <form action="." method="post" style="display: block;">
         {%if write==True %}    
         <textarea name="story" id="textarea" rows="6" maxlength="100" placeholder="Continue the story" required></textarea>

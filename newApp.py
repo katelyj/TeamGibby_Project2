@@ -68,6 +68,8 @@ def story(storyid):
     if request.method == "GET":
         if mainpage.contributed(session['user'], storyid):
             li = add.return_Last_Entry_and_title_user(storyid)
+            print "TESTISTEOISJDFOL"
+            print mainpage.wholeStory(storyid)
             return render_template("story.html",title = li[0], story = mainpage.wholeStory(storyid), write=False, loggedIn=True) #CHANGE LATER FOR INPUTS
         else: 
             li = add.return_Last_Entry_and_title_user(storyid)
@@ -76,7 +78,7 @@ def story(storyid):
         user = session['user']
         entry = add.findNextEntryNum(storyid)
         story = request.form['story']
-        add.addEntry(storyid, entry, user, story)
+        add.addEntry(int(storyid), entry, user, story)
         li = add.return_Last_Entry_and_title_user(storyid)
         return render_template("story.html", title = li[0], story = mainpage.wholeStory(storyid), write=False, loggedIn=True)
 
