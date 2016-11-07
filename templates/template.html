@@ -14,13 +14,13 @@
 	<form action="/">
 	  <input class="navbar-button" type="submit" value="Home">
 	</form>
+	{%if loggedIn==True %}
 	<form action="/newStory/">
 	  <input class="navbar-button" type="submit" value="Create">
 	</form>
 	<form action="/settings/">
 	  <input class="navbar-button" type="submit" value="Settings">
 	</form>
-	{%if loggedIn==True %}
 	<form action="/logout/">
 	  <input class="navbar-button" type="submit" value="Logout">
 	</form>
