@@ -3,11 +3,15 @@
 {% block content %}
     
     <h1> Your journey begins... </h1>
-    
+    <center>
     <form action="/newStory/" method="post" style="display: block;">
-        <input type="text" name="title" class="form-control" placeholder="Title" required>
-        <textarea name="story" rows="5" maxlength="200" placeholder="Your journey begins..." required></textarea>
+    	<h3> Enter a Title!</h3>
+        <input type="text" name="title" style="font-size:35px"class="form-control" placeholder="Title" required>
+        <br>
+        <br>
+        <textarea name="story" rows="7" cols="50" style="font-size:20px" maxlength="300" placeholder="Your journey begins..." required></textarea>
+        <br>
         <input type="submit" name="submit" value="Submit">
     </form>
-
+</center>
 {% endblock %}
