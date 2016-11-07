@@ -3,6 +3,7 @@ import sqlite3
 
 
 
+
 #finding the maximum storyID
 def findNextStoryID():
     f = "data/database.db"
